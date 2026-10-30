@@ -120,6 +120,7 @@ body {
   font-family: var(--sans);
   font-size: 1.0625rem;
   line-height: 1.65;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -202,6 +203,13 @@ svg {
 
 .nw {
   white-space: nowrap;
+}
+
+/* На самых узких экранах заголовок может перенестись и по дефису, лишь бы не вылезти за край */
+@media (max-width: 25.99rem) {
+  h2 .nw {
+    white-space: normal;
+  }
 }
 
 .skip-link {
@@ -548,6 +556,19 @@ html:not(.js) .burger {
   }
 }
 
+/* Телефон боком: экран низкий, шапка компактнее */
+@media (max-height: 30rem) and (orientation: landscape) {
+  :root {
+    --header-h: 3.5rem;
+  }
+
+  .brand__mark {
+    width: 2.4rem;
+    height: 1.9rem;
+  }
+
+}
+
 @media (min-width: 68.75rem) {
   .nav {
     display: block;
@@ -644,6 +665,7 @@ html:not(.js) .burger {
 
 .hero__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: clamp(3rem, 6vw, 5rem);
 }
@@ -705,14 +727,15 @@ html:not(.js) .burger {
 
 .hero__facts li {
   display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.1rem 0.85rem;
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--hero-line);
 }
 
 .hero__facts .icon {
+  grid-row: span 2;
   box-sizing: content-box;
   width: 1.25rem;
   height: 1.25rem;
@@ -733,7 +756,6 @@ html:not(.js) .burger {
   font-size: 0.875rem;
   line-height: 1.4;
   color: var(--hero-muted);
-  text-align: right;
 }
 
 .hero__visual {
@@ -831,7 +853,6 @@ html:not(.js) .burger {
   .hero__facts span {
     display: block;
     margin-top: 0.3rem;
-    text-align: left;
   }
 
   .photo__card {
@@ -857,6 +878,13 @@ html:not(.js) .burger {
   .hero__visual {
     justify-content: flex-end;
     padding-right: 1.25rem;
+  }
+}
+
+/* Телефон боком: заголовок не должен занимать весь низкий экран */
+@media (max-height: 30rem) and (orientation: landscape) {
+  .hero__headline {
+    font-size: 3rem;
   }
 }
 
@@ -963,11 +991,13 @@ html:not(.js) .burger {
 
 .requests__layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0 clamp(2.5rem, 5vw, 5rem);
 }
 
 .requests__list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1009,6 +1039,7 @@ html:not(.js) .burger {
 
 .notes {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
   margin-top: 1.5rem;
 }
@@ -1080,6 +1111,7 @@ html:not(.js) .burger {
 /* ---------- Обо мне ---------- */
 .about__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem clamp(2.5rem, 6vw, 6rem);
 }
 
@@ -1161,6 +1193,12 @@ html:not(.js) .burger {
   color: var(--ink-2);
 }
 
+@media (max-width: 56.24rem) {
+  .stat:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 56.25rem) {
   .about__grid {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
@@ -1175,6 +1213,7 @@ html:not(.js) .burger {
 /* ---------- Как я работаю ---------- */
 .approach__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 3rem clamp(2.5rem, 6vw, 6rem);
 }
@@ -1195,9 +1234,18 @@ html:not(.js) .burger {
 
 .principle {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 1.1rem;
-  padding: 1.6rem 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+  padding: 1.5rem 0;
+}
+
+/* На широких экранах значок слева от текста, на телефоне — над ним, чтобы тексту хватало ширины */
+@media (min-width: 30rem) {
+  .principle {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.1rem;
+    padding: 1.6rem 0;
+  }
 }
 
 .principle + .principle {
@@ -1234,6 +1282,7 @@ html:not(.js) .burger {
 /* ---------- Родителям ---------- */
 .parents__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 3rem clamp(2.5rem, 6vw, 6rem);
 }
@@ -1301,6 +1350,7 @@ html:not(.js) .burger {
 /* ---------- Формат и стоимость ---------- */
 .pricing__layout {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 2.5rem clamp(2.5rem, 6vw, 6rem);
 }
@@ -1405,6 +1455,7 @@ html:not(.js) .burger {
 /* ---------- Образование и опыт ---------- */
 .cv {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 3rem clamp(2.5rem, 6vw, 5rem);
 }
 
@@ -1425,8 +1476,8 @@ html:not(.js) .burger {
 
 .timeline__item {
   display: grid;
-  grid-template-columns: 6.25rem minmax(0, 1fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.35rem;
   padding: 1.3rem 0;
   border-bottom: 1px solid var(--sage-line);
 }
@@ -1451,6 +1502,13 @@ html:not(.js) .burger {
   color: var(--ink-2);
 }
 
+@media (min-width: 34rem) {
+  .timeline__item {
+    grid-template-columns: 6.25rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
 @media (min-width: 56.25rem) {
   .cv {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1460,6 +1518,7 @@ html:not(.js) .burger {
 /* ---------- Вопросы и ответы ---------- */
 .faq__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0 clamp(2.5rem, 6vw, 6rem);
 }
 
@@ -1479,6 +1538,7 @@ html:not(.js) .burger {
   padding: 1.35rem 0;
   font: 500 1.1875rem/1.35 var(--serif);
   color: var(--emerald-800);
+  overflow-wrap: anywhere;
   cursor: pointer;
   list-style: none;
   transition: color 0.2s;
@@ -1595,12 +1655,14 @@ html:not(.js) .burger {
 
 .contact__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
   gap: 3rem clamp(2.5rem, 5vw, 5rem);
 }
 
 .channels {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
   margin: 0;
   padding: 0;
@@ -1654,11 +1716,9 @@ html:not(.js) .burger {
 }
 
 .channel__value {
-  overflow: hidden;
   font-size: 0.9375rem;
   color: var(--emerald-200);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 .channel__arrow {
@@ -1908,6 +1968,7 @@ textarea.field__input {
 
 .helplines {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem 2rem;
   margin: 1.75rem 0 0;
   padding: 1.5rem 0 0;
@@ -1917,6 +1978,7 @@ textarea.field__input {
 
 .helpline__number {
   display: inline-block;
+  padding-block: 0.3rem;
   font: 500 1.3125rem/1.2 var(--serif);
   font-variant-numeric: lining-nums;
   color: var(--white);
@@ -1985,6 +2047,7 @@ a.helpline__number:hover {
 
 .footer__grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem;
 }
 
@@ -2010,22 +2073,17 @@ a.helpline__number:hover {
 .footer__nav ul {
   display: grid;
   align-content: start;
-  gap: 0.6rem;
+  gap: 0.15rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .footer__nav a {
+  display: inline-block;
+  padding-block: 0.3rem;
   text-decoration: none;
-  white-space: nowrap;
   transition: color 0.2s;
-}
-
-@media (max-width: 22.4rem) {
-  .footer__nav a {
-    white-space: normal;
-  }
 }
 
 .footer__nav a:hover {
@@ -2068,6 +2126,10 @@ a.helpline__number:hover {
 }
 
 @media (min-width: 56.25rem) {
+  .footer__nav a {
+    white-space: nowrap;
+  }
+
   .footer__grid {
     grid-template-columns: minmax(0, 4fr) auto minmax(0, 4fr);
     gap: clamp(2.5rem, 5vw, 5rem);
@@ -2102,7 +2164,8 @@ a.helpline__number:hover {
   transform: none;
 }
 
-@media (min-width: 56.25rem) {
+/* Когда кнопка «Записаться» уже есть в шапке (от 480 px, в том числе телефон боком), вторая внизу не нужна */
+@media (min-width: 30rem) {
   .sticky-cta {
     display: none;
   }
@@ -2383,7 +2446,7 @@ a.helpline__number:hover {
 
     <ul class="stats">
       <li class="stat"><strong class="stat__value">10&nbsp;лет</strong><span class="stat__label">работы в&nbsp;сфере психологии</span></li>
-      <li class="stat"><strong class="stat__value">1027+&nbsp;часов</strong><span class="stat__label">обучения гештальт-подходу</span></li>
+      <li class="stat"><strong class="stat__value">1027+ часов</strong><span class="stat__label">обучения гештальт-подходу</span></li>
       <li class="stat"><strong class="stat__value">Клинический психолог</strong><span class="stat__label">базовое образование</span></li>
     </ul>
   </div>
@@ -2408,7 +2471,7 @@ a.helpline__number:hover {
       <li class="principle">
         <span class="principle__icon"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span>
         <div>
-          <h3>Конфиденциальность</h3>
+          <h3>Конфиденци&shy;альность</h3>
           <p>То, что вы&nbsp;рассказываете, остаётся между нами. О&nbsp;редких исключениях, связанных с&nbsp;угрозой жизни, я&nbsp;расскажу на&nbsp;первой встрече.</p>
         </div>
       </li>
@@ -2607,7 +2670,7 @@ a.helpline__number:hover {
       </details>
 
       <details class="faq__item">
-        <summary>Чем психолог отличается от&nbsp;психиатра и&nbsp;психотерапевта?</summary>
+        <summary>Чем психолог отличается от&nbsp;психиатра и&nbsp;психо&shy;терапевта?</summary>
         <div class="faq__answer">
           <p>Психиатр и&nbsp;врач-психотерапевт&nbsp;— это врачи: они ставят диагнозы и&nbsp;назначают лекарства. Я&nbsp;клинический психолог: у&nbsp;меня высшее психологическое образование, я&nbsp;работаю с&nbsp;помощью разговора, не&nbsp;ставлю диагнозы и&nbsp;не&nbsp;назначаю лекарства.</p>
           <p>Если я&nbsp;увижу, что вам может понадобиться помощь врача, скажу об&nbsp;этом прямо. Нередко работа с&nbsp;психологом и&nbsp;лечение у&nbsp;врача хорошо дополняют друг друга.</p>
@@ -2691,7 +2754,7 @@ a.helpline__number:hover {
         <li>
           <a class="channel" href="mailto:olesyas1096@gmail.com">
             <span class="channel__icon"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
-            <span class="channel__body"><span class="channel__label">Почта</span><span class="channel__value">olesyas1096@gmail.com</span></span>
+            <span class="channel__body"><span class="channel__label">Почта</span><span class="channel__value">olesyas1096@<wbr>gmail.com</span></span>
             <svg class="icon channel__arrow" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
           </a>
         </li>
